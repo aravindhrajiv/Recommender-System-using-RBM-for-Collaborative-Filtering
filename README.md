@@ -1,5 +1,5 @@
 # Problem Statement
-To make automatic but personalised recommendations when customers are presented to thousands of possibilities and do not know what to look forand to make a framework in which the problem of making recommendations can be formulated. The inner workings of the most popular collaborative
+To make automatic but personalised recommendations when customers are presented to thousands of possibilities and do not know what to look for and to make a framework in which the problem of making recommendations can be formulated. The inner workings of the most popular collaborative
 filtering algorithms are to be used. Collaborative Filtering tries to identify similarity among users base on their past behavior, and then recommend items to the user which are liked, bought, or rated highly by similar users.
 
 **Major Use Case** - Personalised product recommendations for an existing user as well as a new user.
