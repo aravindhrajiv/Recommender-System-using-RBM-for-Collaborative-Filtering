@@ -70,7 +70,7 @@ Download Link - https://www.kaggle.com/c/santander-product-recommendation/data
     * The set of algorithms followed in the training are:
          1. **Reshaping the array of target varibles**
          2. **Train-Test Split**: (80%-Training & 20%-Testing)
-         3. ** Converting the training and testing data into Pytorch tensors
+         3. ** Converting the training and testing data into Pytorch tensors **
          ![image](https://user-images.githubusercontent.com/67309253/88160604-7ca46f80-cc2c-11ea-9423-6ccc97bbce02.png)
          4. **Class RBM**
                * Intialising the weight and bias tensors
