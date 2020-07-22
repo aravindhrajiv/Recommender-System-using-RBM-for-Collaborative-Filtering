@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <script src="https://unpkg.com/feather-icons@4.10.0/dist/feather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>XXX</title>
+</head>
+ 
+<body>
+
+<nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand"  style="padding: 0 0 0 0;">
+            <img class="img-fluid  mx-auto d-block" src="../static/logo5.png" alt="" style="max-height: 1.8rem">
+        </a>
+        <h6 style="color: #e5e5e5;">DeepInsights&trade;</h6>
+       
+        
+        
+    </nav>
+<div class="container-fluid" style="margin-top: 1rem">
+	<div class="row">
+		<div class="col">
+			<h5>Recommender System using RBM for Collaborative Filtering</h5>
+		</div>
+	</div>
+	
+    <div class="row">
+        <div class="col">
+            <h5>Input Data</h5>
+                <table class="table">
+                {% for key, value in user_data.items() %}
+                   <tr>
+                        <th scope="col"> {{ key }} </th>
+                        <td> {{ value[0] }} </td>
+                   </tr>
+                {% endfor %}
+                </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h5>Output</h5>
+                <table class="table">
+                   <tr>
+                        <th scope="col"> Customer ID </th>
+                        <td> {{ customer_id }} </td>
+                   </tr>
+                   <tr>
+                        <th scope="col"> Product Recommended </th>
+                        <td> 
+                            <table class="table">
+                                <tr>
+                                    <td> {{ pr_rec }} </td>
+                                </tr>
+                            </table>
+                        </td>
+                   </tr>
+                </table>
+        </div>
+    </div>
+    <br><br>
+
+</div> 
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+ 
+</html>
+
+
