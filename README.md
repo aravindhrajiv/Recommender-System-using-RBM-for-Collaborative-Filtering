@@ -1,12 +1,12 @@
 # Problem Statement
-To make automatic but personal recommendations when customers are presented to thousands of possibilities and do not know what to look forand to make a framework in which the problem of making recommendations can be formulated. The inner workings of the most popular collaborative
+To make automatic but personalised recommendations when customers are presented to thousands of possibilities and do not know what to look forand to make a framework in which the problem of making recommendations can be formulated. The inner workings of the most popular collaborative
 filtering algorithms are to be used. Collaborative Filtering tries to identify similarity among users base on their past behavior, and then recommend items to the user which are liked, bought, or rated highly by similar users.
 
 **Major Use Case** - Personalised product recommendations for an existing user as well as a new user.
 
 
 # Process at a Glance
-![Product Flow](https://user-images.githubusercontent.com/67309253/88140604-a9965980-cc0f-11ea-93e1-dfddcdbc678a.JPG)
+![2](https://user-images.githubusercontent.com/67309253/88150525-21b84b80-cc1f-11ea-9df7-1a148fd74e98.JPG)
 
 # Requirements
 * Python 3.6.5
@@ -23,14 +23,14 @@ filtering algorithms are to be used. Collaborative Filtering tries to identify s
     * Json       : for storing and exchanging data with JavaScript object notation
     
 # Python Scripts
-**Jupyter Notebook** - Final Product.ipynb  
+**Jupyter Notebook** - Final training.ipynb , Prediction for Product Recommendation.ipynb
 
 # Dataset
 Download Link - https://www.kaggle.com/c/santander-product-recommendation/data
 * **train_ver2.csv** - Dataset used for training the models. It conatins around 13 million rows of data including user profile, user history (products that they bought) etc.
 * **reference_sample_001** - Sampled 10% of the above mentioned data as my system couldn't load the entire data.
-* First 24 columns of the data relates to the User's profile details
-* Last 24 columns of the data relates to the User's history (products that user has bought)
+* **Input Variable** - First 24 columns of the data relates to the User's profile details
+* **Target Variables** - Last 24 columns of the data relates to the User's history (products that user has bought)
     
 # Code Description
 #### Final training.ipynb ####
@@ -38,131 +38,88 @@ Download Link - https://www.kaggle.com/c/santander-product-recommendation/data
 1. Reading the input excel file from the dataset directory and storing in train list.
    ![1](https://user-images.githubusercontent.com/67309253/88150320-def67380-cc1e-11ea-850d-b549fdf7e477.JPG)
 2. ##### Data Pre-Processing steps #####
-   * Converting the data types of continuous variablesand applying a Median Filter for denoising.
-   ![ss_1](https://user-images.githubusercontent.com/67309253/85375646-3b00a600-b554-11ea-9476-5fe5b8f94644.PNG)
-           
-   *  Image Registration: 
-   This is an algorithm deployed to overcome 2 main issues of the dataset provided.
-       * Rotational Variance - The imput image may not be inclided as per the template image
-       * Background Subtraction - The input image may contain other info apart from the template image.
+   * Converting the data types of continuous variables to numeric values.
+   * Imputing the missing values of continuous variables with mean of reamining values.
+   * Imputing the missing values of categorical variables with max. occured string.
+   ![3](https://user-images.githubusercontent.com/67309253/88151890-e0c13680-cc20-11ea-97d7-99e144002b82.JPG)
+   * Converting the data types of target variables to integral values.
+   * Dropping the date columns for version 1 of the model.
+   * Converting the variable of string type to category type
+   * One Hot Encoding of the category data typed variabled. 
+   ![4](https://user-images.githubusercontent.com/67309253/88154427-7d390800-cc24-11ea-9e4f-aa40280568a3.JPG)
+   
+3. ##### Random Forest Training #####
+   * This is an algorithm deployed to overcome the cold start problem for recommending products for a new user.    
+   * The set of algorithms followed in the training are:
+       1. **Train-Test Split**: (80%-Training & 20%-Testing)
+       ![5](https://user-images.githubusercontent.com/67309253/88156939-c0e14100-cc27-11ea-85fe-db92c2f0f484.JPG)
+       2. **Fitting a Random Forest classifier for each of the target variables**
+       3. **Saving the RF classifiers into a pickle file** 
+       4. **Predicting the output with training data**
+       5. **Calculating the training precision,recall and f1 scores**
+       ![image](https://user-images.githubusercontent.com/67309253/88157642-a52a6a80-cc28-11ea-8ed7-b3ce3dbf65fc.png)
+       6. **Predicting the output with testing data**
+       7. **Calculating the testing precision,recall and f1 scores**
+       ![image](https://user-images.githubusercontent.com/67309253/88158214-634df400-cc29-11ea-9ad8-c4ca2d7ebe59.png)
+       8. **Copying our results into a dataframe and exporting it as .csv file**
+       ![image](https://user-images.githubusercontent.com/67309253/88158465-b45de800-cc29-11ea-8fb6-e3f66b1bf005.png)
        
-       The set of algorithms followed in Image Registration:
-       1. **SIFT** (Keypoints Descriptor):
-       To find the keypoints which decsribes the input and template images.
-       2. **Brute Force Matcher** (Keypoints Matching):
-       To find the similar keypoints across the input and template images.
-       3. **RANSAC** :
-       To decide on the percentage of points that needed to matched from template to input image. We set it as 100% in our example.
-       4. **Homography** :
-       The input image is brought into the template's shape,allignment, etc.
-       ![ss_2](https://user-images.githubusercontent.com/67309253/85377511-d561e900-b556-11ea-99fd-611e84c00baf.PNG)
+ 4. #### Restricted Boltzmann Machine (RBM) Training ####
+    * RBMs are a two-layered artificial neural network with generative capabilities. They have the ability to learn a probability distribution over its set of user preferences.
+    * RBM uses the learned probabiltiy distribution to predict recommendations on never-before-seen items.
+    * The set of algorithms followed in the training are:
+         1. **Reshaping the array of target varibles**
+         2. **Train-Test Split**: (80%-Training & 20%-Testing)
+         3. ** Converting the training and testing data into Pytorch tensors
+         ![image](https://user-images.githubusercontent.com/67309253/88160604-7ca46f80-cc2c-11ea-9423-6ccc97bbce02.png)
+         4. **Class RBM**
+               * Intialising the weight and bias tensors
+               ![image](https://user-images.githubusercontent.com/67309253/88160674-9a71d480-cc2c-11ea-8177-937f79137f9a.png)
+               * probability of visible vector given hidden vector
+               * probability of visible vector given hidden vector
+               ![image](https://user-images.githubusercontent.com/67309253/88160721-af4e6800-cc2c-11ea-9435-0668d9715a73.png)
+               * Paramater learning funtion
+               ![image](https://user-images.githubusercontent.com/67309253/88160882-e7ee4180-cc2c-11ea-9166-3c2e9f78b85a.png)
+               * Free energy function - It calculates the overall energy of the system. It inference the stability of the trained model.
+               ![image](https://user-images.githubusercontent.com/67309253/88160988-081e0080-cc2d-11ea-998b-3f7e56858a8d.png)
        
- 3. #### Detection Algorithm ####
-    * IP Algorithm 1 : This algorithm was effective to find out 4 types of defects out of the 6 mentioned. 
-         * Adaptive Thresholding
-         * Image Subtraction
-         * Mathematical Morphology:
+         5. **Setting the hyperparameters for the training**
+         ![image](https://user-images.githubusercontent.com/67309253/88161213-529f7d00-cc2d-11ea-9c83-f2e41d07cfef.png)
+         6. **Training the RBM model with Gibbs Sampling and Contrastive Divergence Learning**
+         ![image](https://user-images.githubusercontent.com/67309253/88161392-8f6b7400-cc2d-11ea-9e8b-5f7a4d3061a6.png)
+         7. **Plotting the Error vs Epochs graph**
+         ![image](https://user-images.githubusercontent.com/67309253/88161545-bcb82200-cc2d-11ea-91d0-894e045eaea6.png)
+         8. **Plotting the Free Energy vs Epochs graph**
+         ![image](https://user-images.githubusercontent.com/67309253/88161949-4b2ca380-cc2e-11ea-9d43-68f6b4a39b57.png)
+         9. ** Saving the RBM model 
+         ![image](https://user-images.githubusercontent.com/67309253/88162196-a1014b80-cc2e-11ea-94fe-3a21cf0037f9.png)
          
-               1. Opening with 2x2
-               2. Closing with 15x15
-               3. Median filtering with 5x5
-               4. Closing with 29x29 ellipse
-               5. Opening with 3x3
-               6. Opening with 1x1
-               
-         ![ss_3](https://user-images.githubusercontent.com/67309253/85380133-317a3c80-b55a-11ea-9eae-4cf0c58c7b91.PNG)
-               
-    * IP Algorithm 2: This algorithm was effective to find out the remaining 2 types of defects. 
-         * Image Subtraction
-         * Binary Thresholding 
-         
-      ![ss_4](https://user-images.githubusercontent.com/67309253/85380218-4c4cb100-b55a-11ea-8ecd-4f2109101e89.PNG)
-         
-    * Combining both the algorithms and taking out the best results out of them
-    
-      ![ss_5](https://user-images.githubusercontent.com/67309253/85380247-553d8280-b55a-11ea-8f6d-ea80ad8c2a8a.PNG)
-    * Creating a bounding box around the identified defects and snipping them out of the input image and storing those defects in the respective defect directory (tagging). These would be our input for the classification algorithm.
-    
-      ![ss_6](https://user-images.githubusercontent.com/67309253/85380244-540c5580-b55a-11ea-9a26-7e6f8af7da9f.PNG)
-    * Creating a CSV file regarding the input file, type of defect, location coordinates of defect and other information.
-    
-      ![ss_7](https://user-images.githubusercontent.com/67309253/85380235-52db2880-b55a-11ea-9de8-f628d5014745.PNG)
-  
-4. #### Classification Algorithm ####
-We make a simple Convolutional Neural Network (CNN) inorder to perform this clssification of defects task.
-   
-   * Data Pre-processing for CNN :
-       1. One-hot encoding of defect classes - target 
-       2. Image Resizing to (64x64x3)
-       3. Data standarization - Dividing the pixels values by 255
-       4. Random Splitting of dataset into 80% Training and 20% Testing
-       
-      Final shapes of the arrays:
-      
-        ![ss_8](https://user-images.githubusercontent.com/67309253/85381841-00027080-b55c-11ea-863b-71fea4f7340b.PNG)
-    
-   * Model Architecture : (Best one)
-   
-   X_input --> Conv Layer 1 --> Pool Layer 1 --> Conv Layer 2 --> Pool Layer 2 --> Conv Layer 3 --> Pool Layer 3 --> Conv Layer 4 --> Pool Layer 4 --> Flatten --> FC Layer 1 --> FC Layer 2
-   
-       * X_input : Shape - (?,64,64,3)
-       * Conv Layer 1 : Shape - (?,64,64,8)
-           * fitler_size = 8, conv_size = 16, stride = 1, padding = same, l2 regularizer = 1e-5
-           * BatchNormalization
-           * RELU activation
-       * Pool Layer 1 : Shape - (?,32,32,8)
-           * max pooling - pool_size = 2
-       * Conv Layer 2 : Shape - (?,32,32,16)
-           * fitler_size = 16, conv_size = 8, stride = 1, padding = same, l2 regularizer = 1e-5
-           * BatchNormalization
-           * RELU activation
-       * Pool Layer 2 : Shape - (?,16,16,16)
-           * max pooling - pool_size = 2
-       * Conv Layer 3 : Shape - (?,16,16,32)
-           * fitler_size = 32, conv_size = 4, stride = 1, padding = same, l2 regularizer = 1e-5
-           * BatchNormalization
-           * RELU activation
-       * Pool Layer 3 : Shape - (?,8,8,32)
-           * max pooling - pool_size = 2
-       * Conv Layer 4 : Shape - (?,8,8,64)
-           * fitler_size = 64, conv_size = 2, stride = 1, padding = same, l2 regularizer = 1e-5
-           * BatchNormalization
-           * RELU activation
-       * Pool Layer 4 : Shape - (?,2,2,64)
-           * max pooling - pool_size = 4
-       * Flatten : Shape - (?,256)
-       * FC Layer 1 : Shape - (?,64)
-           * Dense - RELU activation, l2 regularizer = 1e-5
-       * FC Layer 2 : Shape - (?,6)
-           * Dense - Softmax activation, l2 regularizer = 1e-5
-   
-   * Model Creation:
-       * Optimizer - ADAM
-       * Loss - Categorical CrossEntropy
-       * Metrics - Accuracy
-       
-   * Hyperparameters Tuned:
-        1. No. of epochs = 40
-        2. Mini-batch size = 16
-        3. l2 regularizers = 1e-5
-        4. Spatial Dropouts2D - only for experiments (not in main model)
-        5. Dropouts - only for experiments (not in main model)
-        
- 5. Saving the model. Sending the entire defect dataset for the model.
- 
-  ![ss_10](https://user-images.githubusercontent.com/67309253/85394805-c0905000-b56c-11ea-9cb2-744bc28bb4f6.PNG)
-   ![ss_11](https://user-images.githubusercontent.com/67309253/85394801-bff7b980-b56c-11ea-812e-d9603516d27b.PNG)
-   
- 6. Marking the defect using detection algorithm and predicting the class of defect using the classification algorithm in the input images. Later, storing the output images in a different directory.
- 
+#### Prediction for Product Recommendation.ipynb ####
+
+1. Loading all the trained models of Random Forest and RBM 
+![image](https://user-images.githubusercontent.com/67309253/88162781-6fd54b00-cc2f-11ea-8e1b-caca780fb0ec.png)
+2. Storing the trained data as reference to check whether an user is already existing or new one 
+![image](https://user-images.githubusercontent.com/67309253/88164734-220e1200-cc32-11ea-9c40-e808d572ecb7.png)
+3. Pre-Processing function for the input data 
+![image](https://user-images.githubusercontent.com/67309253/88164859-5c77af00-cc32-11ea-9377-098237346a6e.png)
+4. Functions for Old User and New User
+![image](https://user-images.githubusercontent.com/67309253/88164983-96e14c00-cc32-11ea-917b-f0724fc091ba.png)
+5. Sending the input user's product vector to RBM (either from existing data or from random forests' predictions)
+![image](https://user-images.githubusercontent.com/67309253/88165259-13742a80-cc33-11ea-8a85-f6a7a39a39b4.png)
+6. Predicting k no. of product recommendations and converting it into a dataframe for output
+![image](https://user-images.githubusercontent.com/67309253/88165166-e3c52280-cc32-11ea-9e2a-9d6632efb8dc.png)
 
 # Results
 
-   * Detection: Detected most of the major defects
-   * Classification:
-        1. Training Accuracy - 93.8%
-        2. Testing Accuracy - 93.2%
-   * Confusion Matrix for the entire dataset:
+   * Random Forest:
+   ![image](https://user-images.githubusercontent.com/67309253/88166362-c5602680-cc34-11ea-9047-019969cd222f.png)   
+   * RBM:
+   **Accuracy - 81 % (RMSE = 0.1939)**
+   ![image](https://user-images.githubusercontent.com/67309253/88165565-87aece00-cc33-11ea-86b8-dcd774fade16.png)
+   * Product Recommendations:
+   ![image](https://user-images.githubusercontent.com/67309253/88166461-e9236c80-cc34-11ea-8619-ceaeefd68655.png)
+   * Kaggle Submission for Version 1 model:
+   ![image](https://user-images.githubusercontent.com/67309253/88166595-1ff98280-cc35-11ea-88cc-b3d1c07e59d4.png)
    
-     ![ss_9](https://user-images.githubusercontent.com/67309253/85394133-b883e080-b56b-11ea-8cbb-27e139e6f26c.PNG)
+   
    
