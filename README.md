@@ -52,17 +52,17 @@ Download Link - https://www.kaggle.com/c/santander-product-recommendation/data
    * This is an algorithm deployed to overcome the cold start problem for recommending products for a new user.    
    * The set of algorithms followed in the training are:
        1. **Train-Test Split**: (80%-Training & 20%-Testing)
-       ![5](https://user-images.githubusercontent.com/67309253/88156939-c0e14100-cc27-11ea-85fe-db92c2f0f484.JPG)
+         ![5](https://user-images.githubusercontent.com/67309253/88156939-c0e14100-cc27-11ea-85fe-db92c2f0f484.JPG)
        2. **Fitting a Random Forest classifier for each of the target variables**
        3. **Saving the RF classifiers into a pickle file** 
        4. **Predicting the output with training data**
        5. **Calculating the training precision,recall and f1 scores**
-       ![image](https://user-images.githubusercontent.com/67309253/88157642-a52a6a80-cc28-11ea-8ed7-b3ce3dbf65fc.png)
+         ![image](https://user-images.githubusercontent.com/67309253/88157642-a52a6a80-cc28-11ea-8ed7-b3ce3dbf65fc.png)
        6. **Predicting the output with testing data**
        7. **Calculating the testing precision,recall and f1 scores**
-       ![image](https://user-images.githubusercontent.com/67309253/88158214-634df400-cc29-11ea-9ad8-c4ca2d7ebe59.png)
+         ![image](https://user-images.githubusercontent.com/67309253/88158214-634df400-cc29-11ea-9ad8-c4ca2d7ebe59.png)
        8. **Copying our results into a dataframe and exporting it as .csv file**
-       ![image](https://user-images.githubusercontent.com/67309253/88158465-b45de800-cc29-11ea-8fb6-e3f66b1bf005.png)
+         ![image](https://user-images.githubusercontent.com/67309253/88158465-b45de800-cc29-11ea-8fb6-e3f66b1bf005.png)
        
  4. #### Restricted Boltzmann Machine (RBM) Training ####
     * RBMs are a two-layered artificial neural network with generative capabilities. They have the ability to learn a probability distribution over its set of user preferences.
@@ -70,29 +70,30 @@ Download Link - https://www.kaggle.com/c/santander-product-recommendation/data
     * The set of algorithms followed in the training are:
          1. **Reshaping the array of target varibles**
          2. **Train-Test Split**: (80%-Training & 20%-Testing)
-         3. ** Converting the training and testing data into Pytorch tensors **
-         ![image](https://user-images.githubusercontent.com/67309253/88160604-7ca46f80-cc2c-11ea-9423-6ccc97bbce02.png)
+         3. **Converting the training and testing data into Pytorch tensors**
+            ![image](https://user-images.githubusercontent.com/67309253/88160604-7ca46f80-cc2c-11ea-9423-6ccc97bbce02.png)
          4. **Class RBM**
                * Intialising the weight and bias tensors
-               ![image](https://user-images.githubusercontent.com/67309253/88160674-9a71d480-cc2c-11ea-8177-937f79137f9a.png)
+               
+                  - ![image](https://user-images.githubusercontent.com/67309253/88160674-9a71d480-cc2c-11ea-8177-937f79137f9a.png)
                * probability of visible vector given hidden vector
                * probability of visible vector given hidden vector
-               ![image](https://user-images.githubusercontent.com/67309253/88160721-af4e6800-cc2c-11ea-9435-0668d9715a73.png)
+                  ![image](https://user-images.githubusercontent.com/67309253/88160721-af4e6800-cc2c-11ea-9435-0668d9715a73.png)
                * Paramater learning funtion
-               ![image](https://user-images.githubusercontent.com/67309253/88160882-e7ee4180-cc2c-11ea-9166-3c2e9f78b85a.png)
+                  ![image](https://user-images.githubusercontent.com/67309253/88160882-e7ee4180-cc2c-11ea-9166-3c2e9f78b85a.png)
                * Free energy function - It calculates the overall energy of the system. It inference the stability of the trained model.
-               ![image](https://user-images.githubusercontent.com/67309253/88160988-081e0080-cc2d-11ea-998b-3f7e56858a8d.png)
+                  ![image](https://user-images.githubusercontent.com/67309253/88160988-081e0080-cc2d-11ea-998b-3f7e56858a8d.png)
        
          5. **Setting the hyperparameters for the training**
-         ![image](https://user-images.githubusercontent.com/67309253/88161213-529f7d00-cc2d-11ea-9c83-f2e41d07cfef.png)
+            - ![image](https://user-images.githubusercontent.com/67309253/88161213-529f7d00-cc2d-11ea-9c83-f2e41d07cfef.png)
          6. **Training the RBM model with Gibbs Sampling and Contrastive Divergence Learning**
-         ![image](https://user-images.githubusercontent.com/67309253/88161392-8f6b7400-cc2d-11ea-9e8b-5f7a4d3061a6.png)
+            ![image](https://user-images.githubusercontent.com/67309253/88161392-8f6b7400-cc2d-11ea-9e8b-5f7a4d3061a6.png)
          7. **Plotting the Error vs Epochs graph**
-         ![image](https://user-images.githubusercontent.com/67309253/88161545-bcb82200-cc2d-11ea-91d0-894e045eaea6.png)
+            ![image](https://user-images.githubusercontent.com/67309253/88161545-bcb82200-cc2d-11ea-91d0-894e045eaea6.png)
          8. **Plotting the Free Energy vs Epochs graph**
-         ![image](https://user-images.githubusercontent.com/67309253/88161949-4b2ca380-cc2e-11ea-9d43-68f6b4a39b57.png)
-         9. ** Saving the RBM model 
-         ![image](https://user-images.githubusercontent.com/67309253/88162196-a1014b80-cc2e-11ea-94fe-3a21cf0037f9.png)
+            ![image](https://user-images.githubusercontent.com/67309253/88161949-4b2ca380-cc2e-11ea-9d43-68f6b4a39b57.png)
+         9. **Saving the RBM model** 
+            ![image](https://user-images.githubusercontent.com/67309253/88162196-a1014b80-cc2e-11ea-94fe-3a21cf0037f9.png)
          
 #### Prediction for Product Recommendation.ipynb ####
 
@@ -112,14 +113,14 @@ Download Link - https://www.kaggle.com/c/santander-product-recommendation/data
 # Results
 
    * Random Forest:
-   ![image](https://user-images.githubusercontent.com/67309253/88166362-c5602680-cc34-11ea-9047-019969cd222f.png)   
+      - ![image](https://user-images.githubusercontent.com/67309253/88166362-c5602680-cc34-11ea-9047-019969cd222f.png)   
    * RBM:
-   **Accuracy - 81 % (RMSE = 0.1939)**
-   ![image](https://user-images.githubusercontent.com/67309253/88165565-87aece00-cc33-11ea-86b8-dcd774fade16.png)
+      - **Accuracy - 81 % (RMSE = 0.1939)**
+      - ![image](https://user-images.githubusercontent.com/67309253/88165565-87aece00-cc33-11ea-86b8-dcd774fade16.png)
    * Product Recommendations:
-   ![image](https://user-images.githubusercontent.com/67309253/88166461-e9236c80-cc34-11ea-8619-ceaeefd68655.png)
+      - ![image](https://user-images.githubusercontent.com/67309253/88166461-e9236c80-cc34-11ea-8619-ceaeefd68655.png)
    * Kaggle Submission for Version 1 model:
-   ![image](https://user-images.githubusercontent.com/67309253/88166595-1ff98280-cc35-11ea-88cc-b3d1c07e59d4.png)
+      - ![image](https://user-images.githubusercontent.com/67309253/88166595-1ff98280-cc35-11ea-88cc-b3d1c07e59d4.png)
    
    
    
