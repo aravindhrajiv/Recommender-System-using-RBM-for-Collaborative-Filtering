@@ -1,11 +1,12 @@
 # Problem Statement
-Printed circuit board (PCB) is the fundamental carrier in electronic devices on which a great number of elements are placed and the quality of the PCB will directly impact the performance of electronic devices.
-To avoid shortcomings of manual detection, an automated optical inspection (AOI) based on machine vision need to be proposed.
+To make automatic but personal recommendations when customers are presented to thousands of possibilities and do not know what to look forand to make a framework in which the problem of making recommendations can be formulated. The inner workings of the most popular collaborative
+filtering algorithms are to be used. Collaborative Filtering tries to identify similarity among users base on their past behavior, and then recommend items to the user which are liked, bought, or rated highly by similar users.
 
-**Major Use Case** - Detection and Classification of defects in PCBs
+**Major Use Case** - Personalised product recommendations for an existing user as well as a new user.
+
 
 # Process at a Glance
-![Product_flow_1](https://user-images.githubusercontent.com/67309253/85369942-9da17400-b54b-11ea-8578-6bc97086061a.PNG)
+![Product Flow](https://user-images.githubusercontent.com/67309253/88140604-a9965980-cc0f-11ea-93e1-dfddcdbc678a.JPG)
 
 # Requirements
 * Python 3.6.5
@@ -16,31 +17,28 @@ To avoid shortcomings of manual detection, an automated optical inspection (AOI)
     * Flask      : web application framework
     * Os         : for interacting with the operating system
     * Tensorflow : Open Source Dataflow library
-    * Keras      : Open Source Neural Network library
-    * Glob       : for reading/writing files to specific directories
-    * Shutil     : for high-level operations of files
-    * Sklearn    : Open Source Machine Learning library
+    * Pytorch    : Open Source Machine Learning library based on the Torch library
+    * Sklearn    : Python Library for many unsupervised and supervised learning algorithms
+    * Pickle     : for serializing and de-serializing a Python object structure
+    * Json       : for storing and exchanging data with JavaScript object notation
     
 # Python Scripts
 **Jupyter Notebook** - Final Product.ipynb  
 
 # Dataset
-* There are 693 images in total of 10 different templates of PCBs 
-* Types of defects :
-    1. Missing Hole
-    2. Mouse Bite
-    3. Open Circuit
-    4. Short Circuit
-    5. Spur
-    6. Spurious copper
-* **For Classification** - A total of 3200 defects (80%-Training & 20%-Testing)
-    * Training data - 2560 defects
-    * Testing data - 640 defects 
+Download Link - https://www.kaggle.com/c/santander-product-recommendation/data
+* **train_ver2.csv** - Dataset used for training the models. It conatins around 13 million rows of data including user profile, user history (products that they bought) etc.
+* **reference_sample_001** - Sampled 10% of the above mentioned data as my system couldn't load the entire data.
+* First 24 columns of the data relates to the User's profile details
+* Last 24 columns of the data relates to the User's history (products that user has bought)
     
 # Code Description
-1. Reading the input images from the dataset directory and storing in data and template lists
+#### Final training.ipynb ####
+
+1. Reading the input excel file from the dataset directory and storing in train list.
+   ![1](https://user-images.githubusercontent.com/67309253/88150320-def67380-cc1e-11ea-850d-b549fdf7e477.JPG)
 2. ##### Data Pre-Processing steps #####
-   * Converting the images to grayscale and applying a Median Filter for denoising.
+   * Converting the data types of continuous variablesand applying a Median Filter for denoising.
    ![ss_1](https://user-images.githubusercontent.com/67309253/85375646-3b00a600-b554-11ea-9476-5fe5b8f94644.PNG)
            
    *  Image Registration: 
